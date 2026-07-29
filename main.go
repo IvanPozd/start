@@ -10,6 +10,10 @@ var globalVar string = "This is global variable"
 
 const pi = math.Pi
 
+func getRadius(radius int8) float32 {
+	return pi * float32(radius) * float32(radius)
+}
+
 func main() {
 	var delimiter string = "=========================================================================================="
 
@@ -33,5 +37,12 @@ func main() {
 
 	log.Println(globalVar)
 	log.Println(localVar1)
+	fmt.Println(delimiter)
+
+	var circleRadius int8 = 6
+	result := getRadius(circleRadius)
+	log.Printf("Радиус круга: %d см.\n", circleRadius)
+	log.Println("Формула расчёта площади круга: A=Pi*r2")
+	log.Printf("Площадь круга: %f32 см. кв.\n", result)
 	fmt.Println(delimiter)
 }
