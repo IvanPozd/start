@@ -1,10 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"log"
 	"math"
+	"os"
 )
 
 var globalVar string = "This is global variable"
@@ -24,7 +28,7 @@ func printCircleRadius(radius int8, result float32) {
 	log.Printf("Площадь круга: %f32 см. кв.\n", result)
 }
 
-func main() {
+func practice() {
 	var delimiter string = "=========================================================================================="
 
 	var phrase string = "Go rules"
@@ -67,5 +71,60 @@ func main() {
 	log.Println("*p =", *p)
 	log.Println("x =", x)
 	fmt.Println(delimiter)
+}
 
+type Glossary struct {
+	Id        string `json: "ID"`
+	Acronym   string `json: "Acronym"`
+	GlossTerm string `json: "GlossTerm"`
+}
+
+func read_file() {
+	jsonFile, err := os.Open("example.json")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer jsonFile.Close()
+
+	byteValue, err := io.ReadAll(jsonFile)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	var glos Glossary
+	err = json.Unmarshal(byteValue, &glos)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Printf("Gloss: %+v\n", glos)
+	fmt.Println(glos)
+}
+
+type User struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
+func main() {
+	users := []User{
+		{Name: "Alice", Age: 30},
+		{Name: "Bob", Age: 25},
+	}
+
+	// Marshal to JSON with indentation
+	byteValue, err := json.MarshalIndent(users, "", "  ")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// Write to file
+	err = ioutil.WriteFile("output.json", byteValue, 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
