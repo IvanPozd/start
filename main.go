@@ -7,8 +7,6 @@ import (
 	"math"
 )
 
-const SSH_KEY string = "~/.ssh/ssollo_db"
-
 var globalVar string = "This is global variable"
 
 const pi = math.Pi
