@@ -17,3 +17,14 @@ func Arrays() {
 		fmt.Printf("%d: %s\n", newIndex, item)
 	}
 }
+
+func Cycles() {
+	i := 0
+	for {
+		if i == 100 {
+			break
+		}
+		fmt.Println(i)
+		i++
+	}
+}
