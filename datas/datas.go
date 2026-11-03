@@ -19,6 +19,7 @@ func Arrays() {
 }
 
 func Cycles() {
+	// infinity cycle
 	i := 0
 	for {
 		if i == 100 {
